@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 @WebServlet(name = "abbas", urlPatterns = "/abbas")
 public class Servlet extends HttpServlet {
-    //int userId, roomId, message;
+    
     public static HashMap<String, ArrayList<String>> chatData = new HashMap<String, ArrayList<String>>();
 
     @Override
