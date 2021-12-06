@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 @WebServlet(name = "abbas", urlPatterns = "/abbas")
 public class Servlet extends HttpServlet {
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String roomId = request.getParameter("roomId"), finalk = "NOT FOUND !";
