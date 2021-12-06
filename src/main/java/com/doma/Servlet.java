@@ -8,20 +8,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.SQLException;
 
 @WebServlet(name = "abbas", urlPatterns = "/abbas")
 public class Servlet extends HttpServlet {
-    //int userId, roomId, message;
-    public static HashMap<String, ArrayList<String>> chatData = new HashMap<String, ArrayList<String>>();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String roomId = request.getParameter("roomId");
-        for (String lineChat : chatData.get(roomId)) {
-            response.getWriter().println(lineChat);
+        String roomId = request.getParameter("roomId"), finalk = "NOT FOUND !";
+        try {
+            finalk = MySqlClass.getChat(roomId);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
+        response.getWriter().println(finalk);
     }
 
     @Override
@@ -29,7 +29,10 @@ public class Servlet extends HttpServlet {
         String userId = request.getParameter("userId");
         String roomId = request.getParameter("roomId");
         String message = request.getParameter("message");
-        chatData.putIfAbsent(roomId, new ArrayList<>());
-        chatData.get(roomId).add(userId + " : " + message);
+        try {
+            MySqlClass.witeData(roomId, message, userId);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
